@@ -8,6 +8,7 @@ In this project, I worked on developing a small web-based application using Dock
 5) Running the Program  
     5a. Building  
     5b. Testing
+6) Final Thoughts 
 
 ## Tools Used
 Here, I give a short breakdown of all the development tools and Python libraries I used in completing this project:  
@@ -143,3 +144,14 @@ After you have installed Insomnia, you can test the trading engine by following 
     
 ```   
 5) Repeat steps 2 through 4 to add orders for other traders. As matches are made, you will see the `status` field of orders change to `partially_filled` or `filled` depending on the quantities of the matches made. 
+
+## Final Thoughts 
+At first glance, this project was hugely intimidating for me. Many of the tools and libraries I utilized throughout this project were ones I had never even heard of before, much less worked with. In that sense, there was quite a learning curve for me. 
+
+In total, I spent four days fleshing this project out. To break it down by day:
+
+- Day 1: Understanding the Problem & Creating a Framework  
+    Was spent on familiarizing myself with the problem I had to solve, and then understanding the tools and libraries by which I could produce some solution. This meant a lot of Googling, watching Youtube tutorials, and reading plenty of documentation. Once I had reviewed HTTP protocols and had a solid grasp of Falcon and how it works, I began to shift gears to actually designing a framework which could solve the problem. This meant setting my problem in the Object-Oriented Paradigm, and understanding exactly what objects I was dealing with, how they interacted, and the extent of their interactions. No code was written on Day 1 except some very simple playing around.
+
+- Day 2: Processing & Storing Orders   
+    Once I conceptualized the framework, I began to actually write some code. I first went about solving the problem of how I could take JSON inputs and store it in memory. I further decomposed this problem into two parts: processing JSON inputs and storing data in memory. 
