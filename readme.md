@@ -20,6 +20,7 @@ Here, I give a short breakdown of all the development tools and Python libraries
 5) Insomnia - To test my API
 6) Pandas - To handle data manipulations and storage of trader/order information
 7) Python - To write the server-side matching logic
+8) Git(Hub) - To version control
 
 ## Project Files
 Here, I give a short breakdown of all the files in the project directory, and how they interact with each other. For a much more detailed look at this interaction, please refer to the *Understanding Flow* section.  
@@ -151,7 +152,29 @@ At first glance, this project was hugely intimidating for me. Many of the tools 
 In total, I spent four days fleshing this project out. To break it down by day:
 
 - Day 1: *Understanding the Problem & Creating a Framework*  
-    Was spent on familiarizing myself with the problem I had to solve, and then understanding the tools and libraries by which I could produce some solution. This meant a lot of Googling, watching Youtube tutorials, and reading plenty of documentation. Once I had reviewed HTTP protocols and had a solid grasp of Falcon and how it works, I began to shift gears to actually designing a framework which could solve the problem. This meant setting my problem in the Object-Oriented Paradigm, and understanding exactly what objects I was dealing with, how they interacted, and the extent of their interactions. No code was written on Day 1 except some very simple playing around.
+    The first day was spent on familiarizing myself with the problem I had to solve, and then understanding the tools and libraries by which I could produce some solution. This meant a lot of Googling, watching Youtube tutorials, and reading plenty of documentation. Once I had reviewed HTTP protocols and had a solid grasp of Falcon and how it works, I began to shift gears to actually designing a framework which could solve the problem. This meant setting my problem in the Object-Oriented Paradigm, and understanding exactly what objects I was dealing with, how they interacted, and the extent of their interactions. No code was written on Day 1 except some very simple playing around.
 
 - Day 2: *Processing & Storing Orders*   
-    Once I conceptualized the framework, I began to actually write some code. I first went about solving the problem of how I could take JSON inputs and store it in memory. I further decomposed this problem into two parts: processing JSON inputs and storing data in memory.
+    On the second day, once I conceptualized the framework, I began to actually write some code. I first went about solving the problem of how I could take JSON inputs and store it in memory. I further decomposed this problem into two parts: processing JSON inputs and storing data in memory.
+    
+    The first problem of processing JSON was easily solved once I discovered `request.stream.read()`, to which I could then apply `json.loads()` and have my data in a Python dictionary structure. The second problem required a lot more thinking. Namely, I was presented with trader ids and trader-specific order information, and had to come up with a way to store that information so that it was specific to each trader id, but also was aggregate so that I could look through all orders when trying to find a match.
+    
+    The solution I came up with was to create my own barebones database class which had two key instance attributes: `traders` and `orders`. The former would be an array of trader ids, each appended at the time that trader's order is processed. The latter would be an array of Pandas dataframes which contain orders specific to a trader. These two arrays are index-matched, which means the dataframes in `orders` correspond, by index, to the trader ids in `traders`. 
+    
+    Using this database framework, I nod had a way to store order information specific to each trader, which was necessary for the /orders/<trader-id> endpoint. But in trying to match orders, I had to figure out a way to consider all orders in aggregate. The solution to this was simple enough after some thinking: I simply had to take all the dataframes in `orders` and put them together in one larger dataframe, which I could then manipulate using the matching logic described above. 
+    
+    With this, I had a way to look at trader and order information from two perspectives: on a very granular level specific to each trader, and also on a more collective scale where I could consider all existing orders made.
+    
+- Day 3: *Developing the Matching Logic*  
+    With the protocols to process order information, and a system to store it, I now I had to begin tackling the Goliath which was the matching logic. Of course, extensive work has been prior done in developing extremely advanced algorithms to support order matching. Attempting to code out one of these was not the point of this project. Instead, the point of this project was developing a framework into which one of these algorithms could fit. For this reason, I wanted to keep the matching logic relatively simple, but of course not *too* simple. 
+    
+    I first wrote out the code to tackle the case when orders are exactly the same in quantity. Therefore, a match would only be made if someone is buying exactly the amount which someone else is selling. This required manipulations of my dataframe, and a lot of reading up on Pandas documentation and StackOverflow, but was not super difficult to do. 
+    
+    After I had that base done, I began to build on it by thinking through the logic I wanted to eventually implement, and how I wanted to assign priorities to orders. What I eventually came up with has already been discussed in the *Matching Logic* section so I won't repeat it here, but coming up with such logic was a creative journey. What I mean by that is that this is exactly what people do when they conceive ideas that are applied on the daily: sit back and think through what works, and then see if it is feasible to implement. And just by doing this over and over, and optimizing a little bit here and there on each iteration, we, as a society, construct the advanced algorithms and concepts that are put to use everywhere in life. It's amazing.
+    
+- Day 4: *Testing, Error-Checking, and Quick Fixes*  
+    After I had most of the code written out, the last day of work followed easily. This day was mostly spent wrapping up all the code, and doing a lot of testing. Though I was testing throughout the course of the project, this was less ad-hoc testing of specific modules, and more dedicated time to really ensure everything is working properly together. 
+    
+    Testing, of course, led to a lot of time spent debugging, accidentally breaking my project, and then rewinding and fixing. It was definitely a process. Because this was a framework I wasn't too familiar with, it was also difficult at times to understand what exactly was causing the program to break. There were so many variables, and so it was a long process to pinpoint exactly what was causing a specific issue. But with each bug I ran into, I learned something new about the libraries and the framework with which I was dealing, and so I guess the best way to learn really is just to get your hands dirty.
+    
+    The last few hours were spent writing up this entire write-up, which is perhaps just as important as the last few days combined. **For if you cannot convey what you've created, you take away from the sum of human knowledge**.
