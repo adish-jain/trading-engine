@@ -1,3 +1,8 @@
+'''
+Project: Trading Engine
+Author: Adish Jain
+Date: 11/16/2018
+'''
 import socket
 import pandas as pd
 import falcon
@@ -11,8 +16,7 @@ class ListOrders:
 
     def on_get(self, request, response):
         index = self.db.get_traders().index(self.id)
-        df = self.db.get_orders()[index]#.drop("trader")
+        df = self.db.get_orders()[index]
         orders = df.to_json(orient="records")
         response.body = orders
-        #response.body = json.dumps({"ids":self.db.get_traders()})
         response.status = falcon.HTTP_200

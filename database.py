@@ -1,3 +1,8 @@
+'''
+Project: Trading Engine
+Author: Adish Jain
+Date: 11/16/2018
+'''
 import falcon
 import pandas as pd
 

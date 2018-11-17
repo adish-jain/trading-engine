@@ -1,18 +1,21 @@
+'''
+Project: Trading Engine
+Author: Adish Jain
+Date: 11/16/2018
+'''
 import socket
 import pandas as pd
 import falcon
 import json
 from datetime import datetime
-from list_orders import ListOrders ##ADDED THIS
+from list_orders import ListOrders
 
 
 class GetOrders:
     def __init__(self, db, app):
         self.db = db
-        #db.traders = [] #ADDED THIS
-        #db.orders = [] #ADDED THIS
         self.firstOrder = True
-        self.app = app ##ADDED THIS
+        self.app = app
 
     def on_get(self, request, response):
         orders = \
@@ -49,7 +52,6 @@ class GetOrders:
                 for i in range(0, len(new_order)):
                     potential_matches = all_existing_orders[(all_existing_orders['symbol'] == new_order.iloc[i]['symbol']) &
                                         (all_existing_orders['orderType'] != new_order.iloc[i]['orderType']) &
-                                        #(all_existing_orders['quantity'] == new_order.iloc[i]['quantity']) &
                                         (all_existing_orders['use'] == "yes") &
                                         (all_existing_orders['trader'] != trader_id) &
                                         (all_existing_orders['status'] != 'filled')] #all existing orders that match criteria
@@ -124,13 +126,12 @@ class GetOrders:
             if self.db.containsID(trader_id) == -1: #trader-ID not already in list
                 self.db.add_trader(trader_id)
                 self.db.add_order(new_order)
-                list_orders = ListOrders(self.db, trader_id) # one for each trader##ADDED THIS
-                self.app.add_route('/orders/' + trader_id, list_orders)##ADDED THIS
+                list_orders = ListOrders(self.db, trader_id) # one for each trader
+                self.app.add_route('/orders/' + trader_id, list_orders)
             else:
                 existing_df = self.db.get_orders()[self.db.containsID(trader_id)]
                 new_df = existing_df.append(new_order) #append new df to existing df for trader
                 self.db.get_orders()[self.db.containsID(trader_id)] = new_df #replace df in database
-            #response.body = self.db.get_orders()[0].to_json(orient="records")
             response.body = json.dumps({'Order processed for':trader_id})
         except:
             response.body = json.dumps({'Error':"Order is malformed"})
