@@ -27,9 +27,9 @@ Here, I delineate the logic I implemented to match orders:
 
 Matches are made only between orders that have the same `symbol` and opposite `orderType`. In other words, stock being traded must belong to the same company, and a "buy" order can only be matched with a "sell" order. At a high-level, there are only three possible cases when considering matching two orders:
 
-1) buy_order_quantity = sell_order_quantity
-2) buy_order_quantity > sell_order_quantity
-3) buy_order_quantity < sell_order_quantity
+1) `buy_order_quantity = sell_order_quantity`
+2) `buy_order_quantity > sell_order_quantity`
+3) `buy_order_quantity < sell_order_quantity`
 
 To measure how different two quantities are, let us define a new metric, `distance = new_order_quantity - existing_order_quantity`. In trying to process a new order, this will allow us to quantify how close the new order is to existing orders. Notice, `distance` will take on different values according to the three cases we defined above. Namely:
 
@@ -41,7 +41,7 @@ Combining these three cases with the previous three cases gives us five more gra
 
 1) distance = 0 --> buy_order_quantity = sell_order_quantity --> both orders are filled
 2) distance is positive-valued
-    > 2a) new_order is of `orderType` buy --> buy_order_quantity > sell_order_quantity --> new_order `status` will be partially_filled and           existing_order `status` will be filled
+  2a) new_order is of `orderType` buy --> buy_order_quantity > sell_order_quantity --> new_order `status` will be partially_filled and           existing_order `status` will be filled
 
 
 ## Running the Program
