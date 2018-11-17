@@ -31,7 +31,7 @@ After you have installed Docker, you can build the trading engine locally by fol
 2) Check to make sure your port isn't already allocated. You can do this by running the command `docker container ls`. If this returns nothing, you're all set to go onto step 3. Otherwise, run `docker rm -f <image name>` to remove the existing allocation. 
 3) Build by running `docker build .`. If you've done this correctly, you should see "Successfully built <image-id>.
 4) Instantiate a container of the image you just built by running `docker run -d -p 8080:8080 <image-id>`. The `-d` flag will run the container in background and print out the container ID. The `-p` flag will publish the container's ports to the specified host. 
-5) Now, if you run `docker container ls`, you should see a new Docker container appear, and you'll see it is bound to port 0.0.0.0:8080. This means we can access the application on Localhost 127.0.0.1:8080.
+5) Now, if you run `docker container ls`, you should see a new Docker container appear, and you'll see it is bound to port `0.0.0.0:8080`. This means we can access the application on Localhost `127.0.0.1:8080`.
 
 ### Testing
 After you have installed Insomnia, you can test the trading engine by following these steps:
@@ -45,3 +45,58 @@ After you have installed Insomnia, you can test the trading engine by following 
         }
     }
 ```    
+2) This error is shown because the /orders endpoint is meant to process JSON input which represents a trader's buy/sell orders, for which a POST request is more appropriate. Accordingly, change the HTTP request in Insomnia to POST and specify a JSON input following the model:
+```json
+    {
+        "data":
+        {
+            "traderId": <trader-id as a string>,
+            "orders": [
+                {
+                    "symbol": <company1 symbol as a string>
+                    "quantity": <integer>
+                    "orderType": <"buy" or "sell">
+                },
+                {
+                    "symbol": <company2 symbol as a string>
+                    "quantity": <integer>
+                    "orderType": <"buy" or "sell">
+                }
+            ]
+        }
+    }
+```  
+3) After sending this POST request, the trader information you should see the following:
+```json
+    {
+        "error":
+        {
+            "Order processed for": <trader-id>,
+        }
+    }
+```    
+4) To check that the order has been processed, change the URL to http://127.0.0.1:8080/orders/<trader-id> and the HTTP request to GET, and you should something similar to the following:
+```json
+    {
+        [
+            {
+                "orderType": <"buy" or "sell">
+                "quantity": <integer>
+                "symbol": <company1 symbol as a string>
+                "orderTime": <time order was placed>
+                "status": "open"
+                "trader": <trader-id>
+                "use": "yes"
+            },
+            {
+                "orderType": <"buy" or "sell">
+                "quantity": <integer>
+                "symbol": <company2 symbol as a string>
+                "orderTime": <time order was placed>
+                "status": "open"
+                "trader": <trader-id>
+                "use": "yes"
+            }
+        ]
+    }
+```   
