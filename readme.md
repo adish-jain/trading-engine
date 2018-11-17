@@ -51,6 +51,9 @@ Combining these three cases with the previous three cases gives us five more gra
     
     3b. `new_order` is of `orderType` sell implying `buy_order_quantity > sell_order_quantity` implying `new_order status` will be `filled` and `existing_order status` will be `partially_filled`
 
+These five cases entirely enumerate all possibilities in the matching logic. Matching is event-driven, meaning that this matching logic will only be traversed when the event that a `new_order` is placed occurs. In other words, when a `new_order` is placed, we check all existing orders to determine the the optimal `existing_order`, if any exists. Optimality of existing orders is weighed on two metrics: `distance` (how closely the `existing_order` satisfies, in quantity, our `new_order`) and `orderTime` (when the `existing_order` was placed, giving priority to earlier orders). 
+
+Specifically, higher priority is given to orders of minimum `distance` away from the `new_order` we are trying to satisfy. If multiple existing orders achieve this same minimum `distance`, then we use a FIFO approach using the `orderTime` field to determine which of these potential existing orders we will use. 
 
 ## Running the Program
 ### Building 
