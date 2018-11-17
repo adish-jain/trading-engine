@@ -99,3 +99,4 @@ After you have installed Insomnia, you can test the trading engine by following 
     ]
     
 ```   
+5) Repeat steps 2 through 4 to add orders for other traders. As matches are made, you will see the `status` field of orders change to `partially_filled` or `filled` depending on the quantities of the matches made. 
