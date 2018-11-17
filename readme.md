@@ -150,8 +150,8 @@ At first glance, this project was hugely intimidating for me. Many of the tools 
 
 In total, I spent four days fleshing this project out. To break it down by day:
 
-- Day 1: Understanding the Problem & Creating a Framework  
+- Day 1: *Understanding the Problem & Creating a Framework*  
     Was spent on familiarizing myself with the problem I had to solve, and then understanding the tools and libraries by which I could produce some solution. This meant a lot of Googling, watching Youtube tutorials, and reading plenty of documentation. Once I had reviewed HTTP protocols and had a solid grasp of Falcon and how it works, I began to shift gears to actually designing a framework which could solve the problem. This meant setting my problem in the Object-Oriented Paradigm, and understanding exactly what objects I was dealing with, how they interacted, and the extent of their interactions. No code was written on Day 1 except some very simple playing around.
 
-- Day 2: Processing & Storing Orders   
-    Once I conceptualized the framework, I began to actually write some code. I first went about solving the problem of how I could take JSON inputs and store it in memory. I further decomposed this problem into two parts: processing JSON inputs and storing data in memory. 
+- Day 2: *Processing & Storing Orders*   
+    Once I conceptualized the framework, I began to actually write some code. I first went about solving the problem of how I could take JSON inputs and store it in memory. I further decomposed this problem into two parts: processing JSON inputs and storing data in memory.
