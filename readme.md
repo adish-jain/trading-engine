@@ -50,17 +50,17 @@ After you have installed Insomnia, you can test the trading engine by following 
     {
         "data":
         {
-            "traderId": <trader-id as a string>,
+            "traderId": trader-id as a string,
             "orders": [
                 {
-                    "symbol": <company1 symbol as a string>
-                    "quantity": <integer>
-                    "orderType": <"buy" or "sell">
+                    "symbol": company1 symbol as a string
+                    "quantity": integer
+                    "orderType": "buy" or "sell"
                 },
                 {
-                    "symbol": <company2 symbol as a string>
-                    "quantity": <integer>
-                    "orderType": <"buy" or "sell">
+                    "symbol": company2 symbol as a string
+                    "quantity": integer
+                    "orderType": "buy" or "sell"
                 }
             ]
         }
@@ -71,33 +71,31 @@ After you have installed Insomnia, you can test the trading engine by following 
     {
         "error":
         {
-            "Order processed for": <trader-id>,
+            "Order processed for": trader-id,
         }
     }
 ```    
 4) To check that the order has been processed, change the URL to http://127.0.0.1:8080/orders/{trader-id} and the HTTP request to GET, and you should something similar to the following:
-```json
-    {
-        "data":
+```
         [
             {
-                "orderType": <"buy" or "sell">
-                "quantity": <integer>
-                "symbol": <company1 symbol as a string>
-                "orderTime": <time order was placed>
+                "orderType": "buy" or "sell"
+                "quantity": integer
+                "symbol": company1 symbol as a string
+                "orderTime": time order was placed
                 "status": "open"
-                "trader": <trader-id>
+                "trader": trader-id
                 "use": "yes"
             },
             {
-                "orderType": <"buy" or "sell">
-                "quantity": <integer>
-                "symbol": <company2 symbol as a string>
-                "orderTime": <time order was placed>
+                "orderType": "buy" or "sell"
+                "quantity": integer
+                "symbol": company2 symbol as a string
+                "orderTime": time order was placed
                 "status": "open"
-                "trader": <trader-id>
+                "trader": trader-id
                 "use": "yes"
             }
         ]
-    }
+    
 ```   
