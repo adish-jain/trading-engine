@@ -36,7 +36,7 @@ After you have installed Docker, you can build the trading engine locally by fol
 ### Testing
 After you have installed Insomnia, you can test the trading engine by following these steps:
 1) Open up Insomnia and specify the URL as http://127.0.0.1:8080/orders/ (Localhost + /orders endpoint). Change the input type to JSON and the HTTP request to GET. After sending this request, you should see the following:
-```json
+```
     {
         "error":
         {
@@ -46,7 +46,7 @@ After you have installed Insomnia, you can test the trading engine by following 
     }
 ```    
 2) This error is shown because the /orders endpoint is meant to process JSON input which represents a trader's buy/sell orders, for which a POST request is more appropriate. Accordingly, change the HTTP request in Insomnia to POST and specify a JSON input following the model:
-```json
+```
     {
         "data":
         {
@@ -67,7 +67,7 @@ After you have installed Insomnia, you can test the trading engine by following 
     }
 ```  
 3) After sending this POST request, the trader information you should see the following:
-```json
+```
     {
         "error":
         {
