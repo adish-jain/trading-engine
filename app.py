@@ -5,9 +5,7 @@ Date: 11/16/2018
 '''
 import falcon
 from database import Database
-from health_check import HealthCheck
 from get_orders import GetOrders
-from list_orders import ListOrders
 
 
 APP = falcon.API()

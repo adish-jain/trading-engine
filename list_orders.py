@@ -3,7 +3,6 @@ Project: Trading Engine
 Author: Adish Jain
 Date: 11/16/2018
 '''
-import socket
 import pandas as pd
 import falcon
 import json
