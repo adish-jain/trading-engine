@@ -131,6 +131,6 @@ class GetOrders:
                 new_df = existing_df.append(new_order) #append new df to existing df for trader
                 self.db.get_orders()[self.db.containsID(trader_id)] = new_df #replace df in database
             #response.body = self.db.get_orders()[0].to_json(orient="records")
-            response.body = json.dumps({'id':self.db.get_traders()})
+            response.body = json.dumps({'Order processed for':trader_id})
         except:
             response.body = json.dumps({'Error':"Order is malformed"})
