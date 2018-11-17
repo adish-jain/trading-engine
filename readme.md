@@ -33,6 +33,21 @@ Here, I give a short breakdown of all the files in the project directory, and ho
 6) database.py - A barebones database system which manages order and trader information for a session 
 
 ## Understanding Flow 
+Here, I walk through the flow of the program, and the interactions that occur between components of the program in much more depth:
+
+### Dockerfile: Building a Container
+The container is born through the Dockerfile, which downloads all dependencies specificed in requirements.txt and instantiates a Docker container. I won't go into the specifics of how the container is actually built, but please reference the *Building* section of *Running the Program* below if you would like to learn more about this. 
+
+### app.py: Creating the Application
+Once our Docker container exists, we instantiate our application and the database which will be used throughout this specific run of the application. We also instantiate an instance of our `GetOrders` class and link it to a new endpoint: `/orders`. We will use this instance of `GetOrders` to actually process trader/order information and store this data in memory. 
+
+### get_orders.py: Processing and Storing Order Information 
+Our `GetOrders` instance has attributes `self.db`, `self.firstOrder`, and `self.app`. The first represents the database instance we created in app.py, which we will eventually need to store information into. The second represents a Boolean gate which tells us whether we are processing the *first* order on this run of the application. If this is so, our processing runs a little differently than if we already have orders in our database. This is because the very first order cannot be matched with anything, as there is nothing to match it to. Finally, the last attribute represents the instance of the application we created in app.py, which we will need to add trader-specific endpoints later on in the program.
+
+The `GetOrders` class supports two types of requests at the /orders endpoint: GET and POST:  
+    The GET request simply shows a message to users to enter data using a POST protocol. Nothing special here.  
+    
+    The POST request is a little more involved. 
 
 ## Matching Logic
 Here, I delineate the logic I implemented to match orders:
