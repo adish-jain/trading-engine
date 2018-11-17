@@ -1,5 +1,12 @@
 # Trading Engine
-In this project, I worked on developing a small web-based application using Docker and Python's Gunicorn and Falcon libraries to simulate a matching engine for stock trade. In brief, a matching engine is is a tool used in trading that matches people that want to buy stocks with those that want to sell them. The project was done as part of a coding challenge for Schonfeld, a New York-based hedge fund.
+In this project, I worked on developing a small web-based application using Docker and Python's Gunicorn and Falcon libraries to simulate a matching engine for stock trade. In brief, a matching engine is is a tool used in trading that matches people that want to buy stocks with those that want to sell them. The project was done as part of a coding challenge for Schonfeld, a New York-based hedge fund. There are a couple sections in this spec that'll help you understand how exactly my implementation works:
+1) Tools Used
+2) Project Files
+3) Understanding Flow
+4) Matching Logic
+5) Running the Program  
+    5a. Building
+    5b. Testing
 
 ## Tools Used
 Here, I give a short breakdown of all the development tools and Python libraries I used in completing this project:
