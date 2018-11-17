@@ -46,8 +46,7 @@ Our `GetOrders` instance has attributes `self.db`, `self.firstOrder`, and `self.
 
 The `GetOrders` class supports two types of requests at the /orders endpoint: GET and POST:  
     The GET request simply shows a message to users to enter data using a POST protocol. Nothing special here.  
-    
-    The POST request is a little more involved. 
+    The POST request is a little more involved. When a POST request is made with some JSON input, I begin by trying to read in the JSON       input and store it as a Python dictionary. If this reading fails, perhaps due to malformed input, I immediately throw an error to the     the /orders endpoint to tell the user that their JSON needs to be revised. 
 
 ## Matching Logic
 Here, I delineate the logic I implemented to match orders:
