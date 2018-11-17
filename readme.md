@@ -42,12 +42,14 @@ Combining these three cases with the previous three cases gives us five more gra
 1) `distance = 0` $\rightarrow$ `buy_order_quantity = sell_order_quantity` $\rightarrow$ both orders are filled
 2) distance is positive-valued  
 
-    2a. `new_order` is of `orderType` buy $\rightarrow$ `buy_order_quantity > sell_order_quantity` $\rightarrow$ `new_order status` will be `partially_filled` and `existing_order status` will be `filled`
+    2a. `new_order` is of `orderType` buy $\rightarrow$ `buy_order_quantity > sell_order_quantity` $\rightarrow$ `new_order status` will be `partially_filled` and `existing_order status` will be `filled`  
+    
     2b. `new_order` is of `orderType` sell $\rightarrow$ `buy_order_quantity < sell_order_quantity` $\rightarrow$ `new_order status` will be `partially_filled` and `existing_order status` will be `filled`
 3) distance is negative-valued  
 
-    2a. `new_order` is of `orderType` buy $\rightarrow$ `buy_order_quantity < sell_order_quantity` $\rightarrow$ `new_order status` will be `filled` and `existing_order status` will be `partially_filled`
-    2b. `new_order` is of `orderType` sell $\rightarrow$ `buy_order_quantity > sell_order_quantity` $\rightarrow$ `new_order status` will be `filled` and `existing_order status` will be `partially_filled`
+    3a. `new_order` is of `orderType` buy $\rightarrow$ `buy_order_quantity < sell_order_quantity` $\rightarrow$ `new_order status` will be `filled` and `existing_order status` will be `partially_filled`  
+    
+    3b. `new_order` is of `orderType` sell $\rightarrow$ `buy_order_quantity > sell_order_quantity` $\rightarrow$ `new_order status` will be `filled` and `existing_order status` will be `partially_filled`
 
 
 ## Running the Program
