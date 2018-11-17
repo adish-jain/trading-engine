@@ -23,6 +23,26 @@ Here, I give a short breakdown of all the files in the project directory, and ho
 ## Understanding Flow 
 
 ## Matching Logic
+Here, I delineate the logic I implemented to match orders:
+
+Matches are made only between orders that have the same `symbol` and opposite `orderType`. In other words, stock being traded must belong to the same company, and a "buy" order can only be matched with a "sell" order. At a high-level, there are only three possible cases when considering matching two orders:
+
+1) buy_order_quantity = sell_order_quantity
+2) buy_order_quantity > sell_order_quantity
+3) buy_order_quantity < sell_order_quantity
+
+To measure how different two quantities are, let us define a new metric, `distance = new_order_quantity - existing_order_quantity`. In trying to process a new order, this will allow us to quantify how close the new order is to existing orders. Notice, `distance` will take on different values according to the three cases we defined above. Namely:
+
+1) if `new_order_quantity = existing_order_quantity`, then `distance` will be 0
+2) if `new_order_quantity > existing_order_quantity`, then `distance` will be positive-valued
+3) if `new_order_quantity > existing_order_quantity`, then `distance` will be negative-valued
+
+Combining these three cases with the previous three cases gives us five more granular cases to account for:
+
+1) distance = 0 --> buy_order_quantity = sell_order_quantity --> both orders are filled
+2) distance is positive-valued
+    > 2a) new_order is of `orderType` buy --> buy_order_quantity > sell_order_quantity --> new_order `status` will be partially_filled and           existing_order `status` will be filled
+
 
 ## Running the Program
 ### Building 
