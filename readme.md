@@ -77,25 +77,25 @@ After you have installed Insomnia, you can test the trading engine by following 
 ```    
 4) To check that the order has been processed, change the URL to http://127.0.0.1:8080/orders/{trader-id} and the HTTP request to GET, and you should something similar to the following:
 ```
-        [
-            {
-                "orderType": "buy" or "sell"
-                "quantity": integer
-                "symbol": company1 symbol as a string
-                "orderTime": time order was placed
-                "status": "open"
-                "trader": trader-id
-                "use": "yes"
-            },
-            {
-                "orderType": "buy" or "sell"
-                "quantity": integer
-                "symbol": company2 symbol as a string
-                "orderTime": time order was placed
-                "status": "open"
-                "trader": trader-id
-                "use": "yes"
-            }
-        ]
+    [
+        {
+            "orderType": "buy" or "sell"
+            "quantity": integer
+            "symbol": company1 symbol as a string
+            "orderTime": time order was placed
+            "status": "open"
+            "trader": trader-id
+            "use": "yes"
+        },
+        {
+            "orderType": "buy" or "sell"
+            "quantity": integer
+            "symbol": company2 symbol as a string
+            "orderTime": time order was placed
+            "status": "open"
+            "trader": trader-id
+            "use": "yes"
+        }
+    ]
     
 ```   
