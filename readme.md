@@ -5,7 +5,7 @@ In this project, I worked on developing a small web-based application using Dock
 3) Understanding Flow
 4) Matching Logic
 5) Running the Program  
-    5a. Building
+    5a. Building  
     5b. Testing
 
 ## Tools Used
