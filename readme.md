@@ -177,4 +177,4 @@ In total, I spent four days fleshing this project out. To break it down by day:
     
     Testing, of course, led to a lot of time spent debugging, accidentally breaking my project, and then rewinding and fixing. It was definitely a process. Because this was a framework I wasn't too familiar with, it was also difficult at times to understand what exactly was causing the program to break. There were so many variables, and so it was a long process to pinpoint exactly what was causing a specific issue. But with each bug I ran into, I learned something new about the libraries and the framework with which I was dealing, and so I guess the best way to learn really is just to get your hands dirty.
     
-    The last few hours were spent writing up this entire write-up, which is perhaps just as important as the last few days combined. **For if you cannot convey what you've created, you take away from the sum of human knowledge**.
+    The last few hours were spent writing up this entire write-up, which is perhaps just as important as the last few days combined. **For if you cannot convey what you've created, you don't add to the sum of human knowledge**.
