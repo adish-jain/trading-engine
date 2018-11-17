@@ -28,8 +28,8 @@ Here, I give a short breakdown of all the files in the project directory, and ho
 1) requirements.txt - Contains all dependencies (Falcon, Gunicorn, Pandas)
 2) Dockerfile - Downloads all dependencies and builds the Docker image from which we can instantiate a container 
 3) app.py - An entrypoint for our application and drives route configuration
-4) get_orders.py - Handles POST requests to take order information from the /orders endpoint and store it in memory
-5) list_orders.py - Handles GET requests to access order information for a specific trader and send it to the /orders/<trader-id> endpoint
+4) get_orders.py - Handles POST requests to take order information from the `/orders` endpoint and store it in memory
+5) list_orders.py - Handles GET requests to access order information for a specific trader and send it to the `/orders/trader-id` endpoint
 6) database.py - A barebones database system which manages order and trader information for a session 
 
 ## Understanding Flow 
@@ -49,9 +49,9 @@ Using this database framework, I have a way to store order information specific 
 ### get_orders.py: Processing & Matching Orders
 Our `GetOrders` instance has attributes `self.db`, `self.firstOrder`, and `self.app`. The first represents the database instance we created in app.py, which we will eventually need to store information into. The second represents a Boolean gate which tells us whether we are processing the *first* order on this run of the application. If this is so, our processing runs a little differently than if we already have orders in our database. This is because the very first order cannot be matched with anything, as there is nothing to match it to. Finally, the last attribute represents the instance of the application we created in app.py, which we will need to add trader-specific endpoints later on in the program.
 
-The `GetOrders` class supports two types of requests at the /orders endpoint: GET and POST:  
+The `GetOrders` class supports two types of requests at the `/orders` endpoint: GET and POST:  
 <p>The GET request simply shows a message to users to enter data using a POST protocol. Nothing special here.</p>
-<p>The POST request is a little more involved. When a POST request is made with some JSON input, I begin by trying to read in the JSON     input and store it as a Python dictionary. If this reading fails, perhaps due to malformed input, I immediately throw an error to         the /orders endpoint to tell the user that their JSON needs to be revised.
+<p>The POST request is a little more involved. When a POST request is made with some JSON input, I begin by trying to read in the JSON     input and store it as a Python dictionary. If this reading fails, perhaps due to malformed input, I immediately throw an error to         the `/orders` endpoint to tell the user that their JSON needs to be revised.
     
 If the input was indeed correctly read in, we then proceed to process and store it. We first extract the `trader_id` and the `orders_list` components from the input (there should only be one of each of these in the input JSON). From the list of orders, we construct a Pandas dataframe which will, from hereforth, be the structure we use to store order information specific to a trader. The dataframe has columns as follow: `orderType`, `quantity`, `symbol`, `orderTime`, `status`, `trader`, and `use`. Each record in the dataframe represents a specific order in the `order_list`. The first three columns are filled from the JSON input itself, which requires those fields to specify an order. The last three fields are created in processing in each order. `orderTime` represents the date/time at which an order was placed, `status` represents whether an order is `open`, `filled`, or `partially_filled`. All orders start as `open`. Finally, `use` represents whether an order is open for exchange. The necessity for this extra field is something I'll get into shortly.
 
@@ -119,7 +119,7 @@ After you have installed Docker, you can build the trading engine locally by fol
 ### Testing
 After you have installed Insomnia, you can test the trading engine by following these steps:  
 
-1) Open up Insomnia and specify the URL as http://127.0.0.1:8080/orders/ (Localhost + /orders endpoint). Change the input type to JSON and the HTTP request to GET. After sending this request, you should see the following:
+1) Open up Insomnia and specify the URL as http://127.0.0.1:8080/orders/ (Localhost + `/orders` endpoint). Change the input type to JSON and the HTTP request to GET. After sending this request, you should see the following:
 ```
     {
         "error":
@@ -129,7 +129,7 @@ After you have installed Insomnia, you can test the trading engine by following 
         }
     }
 ```    
-2) This error is shown because the /orders endpoint is meant to process JSON input which represents a trader's buy/sell orders, for which a POST request is more appropriate. Accordingly, change the HTTP request in Insomnia to POST and specify a JSON input following the model:
+2) This error is shown because the `/orders` endpoint is meant to process JSON input which represents a trader's buy/sell orders, for which a POST request is more appropriate. Accordingly, change the HTTP request in Insomnia to POST and specify a JSON input following the model:
 ```
     {
         "data":
